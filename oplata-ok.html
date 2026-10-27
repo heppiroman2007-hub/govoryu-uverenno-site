@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Оплата прошла — Говорю уверенно</title>
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#1e0c18">
+<link rel="icon" href="img/avatar.jpg">
+<style>
+@font-face{font-family:"Montserrat";src:url(fonts/montserrat.woff2) format("woff2");font-weight:100 900;font-display:swap}
+:root{
+  --black:#1e0c18; --white:#fff; --grey:#f5f4ee; --grey-2:#e7e5da;
+  --text:#1e0c18; --body:#3d3439; --muted:#6e6268; --line:#dcd8cc; --line-d:#4a2240;
+  --plum:#731e52; --pist:#ddeaa1; --pist-2:#eef4cf; --err:#b3263e;
+  --grad:linear-gradient(100deg,#d6e595,#ddeaa1 45%,#e9f1c3);
+  --r:24px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--grey);color:var(--text);font:400 16px/1.6 "Montserrat",system-ui,sans-serif}
+a{color:var(--plum)}
+.top{background:var(--black);color:#fff}
+.hd{max-width:1140px;margin:0 auto;padding:0 24px;height:76px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.logo{font-weight:700;font-size:22px;letter-spacing:-.02em;text-decoration:none;color:#fff;white-space:nowrap}
+.logo span{color:var(--pist)}
+.hd .back{color:#cbbfc6;font-size:14px;text-decoration:none}
+.hd .back:hover{color:#fff}
+.wrap{max-width:820px;margin:0 auto;padding:48px 24px 80px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:56px;padding:0 30px;border-radius:999px;font:700 15px/1 "Montserrat",sans-serif;text-decoration:none;color:var(--black);background:var(--grad);border:0;cursor:pointer;transition:filter .2s,transform .2s}
+.btn:hover{filter:saturate(1.3);transform:translateY(-1px)}
+.btn[disabled]{opacity:.55;cursor:not-allowed;transform:none;filter:none}
+:focus-visible{outline:2px solid var(--plum);outline-offset:3px}
+
+/* legal text */
+.doc{background:#fff;border-radius:var(--r);padding:clamp(24px,5vw,56px)}
+.doc h1{font-size:clamp(26px,4vw,38px);line-height:1.15;letter-spacing:-.02em;margin-bottom:8px}
+.doc .date{color:var(--muted);font-size:14px;margin-bottom:28px}
+.doc h2{font-size:19px;margin:32px 0 10px}
+.doc p,.doc li{color:var(--body);font-size:15.5px;margin-bottom:10px}
+.doc ul,.doc ol{padding-left:22px;margin-bottom:10px}
+.doc .req{background:var(--grey);border-radius:16px;padding:18px 20px;font-size:14.5px;line-height:1.7}
+.doc .todo{background:#fff3d6;border-radius:6px;padding:1px 6px}
+
+footer{background:var(--black);color:#a8939f;font-size:13.5px}
+footer .in{max-width:1140px;margin:0 auto;padding:36px 24px 44px;display:flex;flex-wrap:wrap;justify-content:space-between;gap:20px}
+footer a{color:#cbbfc6}
+footer .links{display:flex;flex-direction:column;gap:6px}
+</style>
+<style>
+  .ok{max-width:620px;margin:0 auto;padding:70px 24px 90px;text-align:center}
+  .ok .ic{width:76px;height:76px;border-radius:50%;background:var(--pist);display:grid;place-items:center;margin:0 auto 26px}
+  .ok .ic svg{width:36px;height:36px;stroke:var(--black);fill:none;stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}
+  .ok h1{font-size:clamp(28px,4vw,40px);letter-spacing:-.02em;line-height:1.15;margin-bottom:14px}
+  .ok p{color:var(--body);margin-bottom:28px}
+  .ok small{display:block;margin-top:22px;color:var(--muted);font-size:13.5px}
+</style>
+</head>
+<body>
+<div class="top"><div class="hd"><a class="logo" href="index.html">#говорю<span>уверенно</span></a></div></div>
+<main class="ok">
+  <div class="ic"><svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 7"/></svg></div>
+  <h1>Спасибо! Оплата прошла</h1>
+  <p>Возвращайтесь в бота — он пришлёт сообщение, выберете удобное время, и завтра придёт день 2. Чек отправили на вашу почту.</p>
+  <a class="btn" href="https://t.me/govoryu_uverenno_bot">Вернуться в бота</a>
+  <small>Сообщение не пришло в течение 10 минут? Напишите: <a href="mailto:Romario18036@yandex.ru">Romario18036@yandex.ru</a> · <a href="tel:+79141664336">+7 914 166-43-36</a></small>
+</main>
+<footer><div class="in">
+  <div>ИП Параев Роман Евгеньевич · г. Комсомольск-на-Амуре · ИНН 270325973531 · ОГРНИП 325270000031558</div>
+  <div class="links"><a href="offer.html">Публичная оферта</a><a href="privacy.html">Политика обработки персональных данных</a><a href="consent.html">Согласие на обработку ПДн</a></div>
+</div></footer>
+</body>
+</html>

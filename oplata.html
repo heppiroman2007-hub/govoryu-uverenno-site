@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Оплата курса — Говорю уверенно</title>
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#1e0c18">
+<link rel="icon" href="img/avatar.jpg">
+<style>
+@font-face{font-family:"Montserrat";src:url(fonts/montserrat.woff2) format("woff2");font-weight:100 900;font-display:swap}
+:root{
+  --black:#1e0c18; --white:#fff; --grey:#f5f4ee; --grey-2:#e7e5da;
+  --text:#1e0c18; --body:#3d3439; --muted:#6e6268; --line:#dcd8cc; --line-d:#4a2240;
+  --plum:#731e52; --pist:#ddeaa1; --pist-2:#eef4cf; --err:#b3263e;
+  --grad:linear-gradient(100deg,#d6e595,#ddeaa1 45%,#e9f1c3);
+  --r:24px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--grey);color:var(--text);font:400 16px/1.6 "Montserrat",system-ui,sans-serif}
+a{color:var(--plum)}
+.top{background:var(--black);color:#fff}
+.hd{max-width:1140px;margin:0 auto;padding:0 24px;height:76px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.logo{font-weight:700;font-size:22px;letter-spacing:-.02em;text-decoration:none;color:#fff;white-space:nowrap}
+.logo span{color:var(--pist)}
+.hd .back{color:#cbbfc6;font-size:14px;text-decoration:none}
+.hd .back:hover{color:#fff}
+.wrap{max-width:820px;margin:0 auto;padding:48px 24px 80px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:56px;padding:0 30px;border-radius:999px;font:700 15px/1 "Montserrat",sans-serif;text-decoration:none;color:var(--black);background:var(--grad);border:0;cursor:pointer;transition:filter .2s,transform .2s}
+.btn:hover{filter:saturate(1.3);transform:translateY(-1px)}
+.btn[disabled]{opacity:.55;cursor:not-allowed;transform:none;filter:none}
+:focus-visible{outline:2px solid var(--plum);outline-offset:3px}
+
+/* legal text */
+.doc{background:#fff;border-radius:var(--r);padding:clamp(24px,5vw,56px)}
+.doc h1{font-size:clamp(26px,4vw,38px);line-height:1.15;letter-spacing:-.02em;margin-bottom:8px}
+.doc .date{color:var(--muted);font-size:14px;margin-bottom:28px}
+.doc h2{font-size:19px;margin:32px 0 10px}
+.doc p,.doc li{color:var(--body);font-size:15.5px;margin-bottom:10px}
+.doc ul,.doc ol{padding-left:22px;margin-bottom:10px}
+.doc .req{background:var(--grey);border-radius:16px;padding:18px 20px;font-size:14.5px;line-height:1.7}
+.doc .todo{background:#fff3d6;border-radius:6px;padding:1px 6px}
+
+footer{background:var(--black);color:#a8939f;font-size:13.5px}
+footer .in{max-width:1140px;margin:0 auto;padding:36px 24px 44px;display:flex;flex-wrap:wrap;justify-content:space-between;gap:20px}
+footer a{color:#cbbfc6}
+footer .links{display:flex;flex-direction:column;gap:6px}
+</style>
+<style>
+  .pay{max-width:1000px;margin:0 auto;padding:44px 24px 80px;display:grid;grid-template-columns:1fr 1.05fr;gap:20px;align-items:start}
+  .card{background:#fff;border-radius:var(--r);padding:clamp(24px,4vw,40px)}
+  .sum{background:var(--black);color:#fff}
+  .sum .k{font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--pist)}
+  .sum h1{font-size:clamp(26px,3.2vw,34px);line-height:1.15;letter-spacing:-.02em;margin:12px 0 22px}
+  .sum ul{list-style:none}
+  .sum li{display:grid;grid-template-columns:22px 1fr;gap:10px;padding:10px 0;border-bottom:1px solid var(--line-d);font-size:15px;color:#e6dce2}
+  .sum li:last-child{border:0}
+  .sum svg{width:18px;height:18px;stroke:var(--pist);fill:none;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round;margin-top:3px}
+  .sum .safe{margin-top:22px;display:flex;gap:10px;align-items:flex-start;font-size:13px;color:#a8939f}
+  .sum .safe svg{flex:none;stroke:#a8939f;stroke-width:1.8;margin-top:1px}
+  form h2{font-size:22px;letter-spacing:-.01em;margin-bottom:18px}
+  .opts{display:grid;gap:10px;margin-bottom:24px}
+  .opt{position:relative;display:flex;justify-content:space-between;align-items:center;gap:14px;padding:16px 18px;border-radius:16px;border:1.5px solid var(--line);cursor:pointer;transition:border-color .2s,background .2s}
+  .opt input{position:absolute;opacity:0;pointer-events:none}
+  .opt:has(input:checked){border-color:var(--plum);background:#fbf6f9}
+  .opt:has(input:focus-visible){outline:2px solid var(--plum);outline-offset:3px}
+  .opt .t{font-size:15px;font-weight:600}
+  .opt .t small{display:block;font-size:13px;font-weight:400;color:var(--muted);margin-top:2px}
+  .opt .p{font-size:20px;font-weight:700;white-space:nowrap}
+  .save{display:inline-block;margin-left:6px;padding:2px 8px;border-radius:99px;background:var(--pist);font-size:11px;font-weight:700;vertical-align:2px}
+  label.f{display:block;font-size:14px;font-weight:600;margin-bottom:6px}
+  .in{width:100%;min-height:52px;border:1.5px solid var(--line);border-radius:14px;padding:0 16px;font:500 16px "Montserrat",sans-serif;color:var(--text);background:#fff;transition:border-color .2s}
+  .in:focus{outline:0;border-color:var(--plum)}
+  .hint{font-size:12.5px;color:var(--muted);margin:6px 0 18px}
+  .chk{display:grid;grid-template-columns:22px 1fr;gap:10px;font-size:13.5px;color:var(--body);margin-bottom:12px;cursor:pointer}
+  .chk input{width:20px;height:20px;accent-color:var(--plum);margin-top:1px}
+  .err{display:none;color:var(--err);font-size:13.5px;margin:8px 0 0}
+  .err.show{display:block}
+  form .btn{width:100%;margin-top:14px}
+  .methods{display:flex;flex-wrap:wrap;gap:6px;margin-top:14px;justify-content:center}
+  .methods span{font-size:12px;font-weight:600;color:var(--muted);border:1px solid var(--line);border-radius:8px;padding:4px 9px}
+  @media(max-width:860px){.pay{grid-template-columns:1fr}.sum{order:2}}
+</style>
+</head>
+<body>
+
+<div class="top"><div class="hd"><a class="logo" href="index.html">#говорю<span>уверенно</span></a><a class="back" href="index.html">← На главную</a></div></div>
+
+<main class="pay">
+  <section class="card sum">
+    <div class="k">Оплата курса</div>
+    <h1>«Говорю уверенно»: 4&nbsp;недели с AI-тренером</h1>
+    <ul>
+      <li><svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 7"/></svg>20 минут в день в Telegram</li>
+      <li><svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 7"/></svg>Репетиции разговоров под вашу цель</li>
+      <li><svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 7"/></svg>Разбор каждой голосовой с цифрами прогресса</li>
+      <li><svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 7"/></svg>Доступ открывается в боте сразу после оплаты</li>
+    </ul>
+    <div class="safe"><svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>Оплата проходит на защищённой странице ЮKassa. Данные карты не попадают к нам.</div>
+  </section>
+
+  <form class="card" id="payForm" novalidate>
+    <h2>Выберите способ оплаты</h2>
+    <div class="opts" role="radiogroup" aria-label="Тариф">
+      <label class="opt"><input type="radio" name="plan" value="full" checked><span class="t">Весь курс сразу<span class="save">−1 200 ₽</span><small>один платёж</small></span><span class="p">8 800 ₽</span></label>
+      <label class="opt"><input type="radio" name="plan" value="parts"><span class="t">Частями<small>2 платежа по 5 000 ₽ раз в 14 дней · 10 000 ₽</small></span><span class="p">5 000 ₽</span></label>
+    </div>
+
+    <label class="f" for="email">Email для чека</label>
+    <input class="in" id="email" name="email" type="email" inputmode="email" autocomplete="email" placeholder="you@mail.ru" required>
+    <p class="hint">Сюда придёт электронный чек по 54-ФЗ.</p>
+
+    <div id="tgBox" hidden>
+      <label class="f" for="tg">Ваш ник в Telegram</label>
+      <input class="in" id="tg" name="tg" type="text" autocomplete="off" placeholder="@username">
+      <p class="hint">Чтобы открыть доступ к курсу в боте. Удобнее перейти к оплате из бота — тогда ник не нужен.</p>
+    </div>
+
+    <label class="chk"><input type="checkbox" id="agree" required><span>Принимаю условия <a href="offer.html" target="_blank">публичной оферты</a></span></label>
+    <label class="chk"><input type="checkbox" id="agreePd" required><span>Даю <a href="consent.html" target="_blank">согласие на обработку персональных данных</a></span></label>
+
+    <p class="err" id="err" role="alert"></p>
+    <button class="btn" type="submit" id="payBtn">Перейти к оплате 8 800 ₽</button>
+    <div class="methods" aria-label="Способы оплаты"><span>Карта Мир</span><span>Visa / Mastercard</span><span>СБП</span><span>SberPay</span><span>ЮMoney</span></div>
+  </form>
+</main>
+
+<footer><div class="in">
+  <div>ИП Параев Роман Евгеньевич · г. Комсомольск-на-Амуре · ИНН 270325973531 · ОГРНИП 325270000031558<br><a href="mailto:Romario18036@yandex.ru">Romario18036@yandex.ru</a> · <a href="tel:+79141664336">+7 914 166-43-36</a></div>
+  <div class="links"><a href="offer.html">Публичная оферта</a><a href="privacy.html">Политика обработки персональных данных</a><a href="consent.html">Согласие на обработку ПДн</a></div>
+</div></footer>
+
+<script>
+(function(){
+  /* Адрес сервера, который создаёт платёж в ЮKassa (см. payments/README.md).
+     Пока пусто — страница показывает контакты вместо перехода к оплате. */
+  var PAY_API = '';
+
+  var q=new URLSearchParams(location.search);
+  var tgId=(q.get('tg')||'').replace(/\D/g,'');
+  var form=document.getElementById('payForm'),btn=document.getElementById('payBtn'),err=document.getElementById('err');
+  var PRICE={full:'8 800',parts:'5 000'};
+
+  if(q.get('plan')==='parts')form.plan.value='parts';
+  if(q.get('plan')==='parts2'){ /* второй платёж при оплате частями — ссылку присылает бот */
+    PRICE.parts2='5 000';
+    document.querySelector('.opts').innerHTML='<label class="opt"><input type="radio" name="plan" value="parts2" checked><span class="t">Второй платёж<small>оплата частями · 2 из 2</small></span><span class="p">5 000 ₽</span></label>';
+    document.querySelector('form h2').textContent='Второй платёж за курс';
+  }
+  if(!tgId)document.getElementById('tgBox').hidden=false;
+
+  function paint(){btn.textContent='Перейти к оплате '+PRICE[form.plan.value]+' ₽'}
+  form.addEventListener('change',paint);paint();
+
+  function fail(msg){err.innerHTML=msg;err.classList.add('show')}
+
+  form.addEventListener('submit',function(e){
+    e.preventDefault();err.classList.remove('show');
+    var email=form.email.value.trim(),tg=(form.tg.value||'').trim().replace(/^@/,'');
+    if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email))return fail('Проверьте email — на него придёт чек.');
+    if(!tgId&&!/^[A-Za-z0-9_]{5,32}$/.test(tg))return fail('Укажите ник в Telegram, например @ivan_petrov.');
+    if(!document.getElementById('agree').checked)return fail('Нужно принять условия оферты.');
+    if(!document.getElementById('agreePd').checked)return fail('Нужно согласие на обработку персональных данных.');
+    if(!PAY_API)return fail('Онлайн-оплата подключается. Напишите нам — пришлём ссылку: <a href="mailto:Romario18036@yandex.ru">Romario18036@yandex.ru</a> или <a href="tel:+79141664336">+7 914 166-43-36</a>.');
+
+    btn.disabled=true;btn.textContent='Создаём платёж…';
+    fetch(PAY_API,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({plan:form.plan.value,email:email,tg_id:tgId||null,tg_username:tgId?null:tg})})
+      .then(function(r){if(!r.ok)throw 0;return r.json()})
+      .then(function(d){if(!d.confirmation_url)throw 0;location.href=d.confirmation_url})
+      .catch(function(){btn.disabled=false;paint();fail('Не получилось создать платёж. Попробуйте ещё раз или напишите нам: <a href="mailto:Romario18036@yandex.ru">Romario18036@yandex.ru</a>.')});
+  });
+})();
+</script>
+</body>
+</html>
