@@ -89,7 +89,7 @@ footer .links{display:flex;flex-direction:column;gap:6px}
 <main class="pay">
   <section class="card sum">
     <div class="k">Оплата курса</div>
-    <h1>«Говорю уверенно»: 4&nbsp;недели с AI-тренером</h1>
+    <h1>«Говорю уверенно»: 4&nbsp;недели тренировок речи</h1>
     <ul>
       <li><svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 7"/></svg>20 минут в день в Telegram</li>
       <li><svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 7"/></svg>Репетиции разговоров под вашу цель</li>
@@ -111,9 +111,9 @@ footer .links{display:flex;flex-direction:column;gap:6px}
     <p class="hint">Сюда придёт электронный чек по 54-ФЗ.</p>
 
     <div id="tgBox" hidden>
-      <label class="f" for="tg">Ваш ник в Telegram</label>
-      <input class="in" id="tg" name="tg" type="text" autocomplete="off" placeholder="@username">
-      <p class="hint">Чтобы открыть доступ к курсу в боте. Удобнее перейти к оплате из бота — тогда ник не нужен.</p>
+      <label class="f" for="tg">Код из бота</label>
+      <input class="in" id="tg" name="tg" type="text" autocomplete="off" placeholder="Например, A7K2M9">
+      <p class="hint">Бот присылает его вместе со ссылкой на оплату. Удобнее перейти к оплате прямо из бота — тогда код подставится сам.</p>
     </div>
 
     <label class="chk"><input type="checkbox" id="agree" required><span>Принимаю условия <a href="offer.html" target="_blank">публичной оферты</a></span></label>
@@ -137,7 +137,7 @@ footer .links{display:flex;flex-direction:column;gap:6px}
   var PAY_API = '';
 
   var q=new URLSearchParams(location.search);
-  var tgId=(q.get('tg')||'').replace(/\D/g,'');
+  var tgId=(q.get('tg')||'').replace(/[^A-Za-z0-9_-]/g,'');  /* случайный код пользователя из бота */
   var form=document.getElementById('payForm'),btn=document.getElementById('payBtn'),err=document.getElementById('err');
   var PRICE={full:'8 800',parts:'5 000'};
 
@@ -156,15 +156,15 @@ footer .links{display:flex;flex-direction:column;gap:6px}
 
   form.addEventListener('submit',function(e){
     e.preventDefault();err.classList.remove('show');
-    var email=form.email.value.trim(),tg=(form.tg.value||'').trim().replace(/^@/,'');
+    var email=form.email.value.trim(),code=(form.tg.value||'').trim();
     if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email))return fail('Проверьте email — на него придёт чек.');
-    if(!tgId&&!/^[A-Za-z0-9_]{5,32}$/.test(tg))return fail('Укажите ник в Telegram, например @ivan_petrov.');
+    if(!tgId&&!/^[A-Za-z0-9_-]{4,64}$/.test(code))return fail('Введите код из бота — он приходит вместе со ссылкой на оплату.');
     if(!document.getElementById('agree').checked)return fail('Нужно принять условия оферты.');
     if(!document.getElementById('agreePd').checked)return fail('Нужно согласие на обработку персональных данных.');
     if(!PAY_API)return fail('Онлайн-оплата подключается. Напишите нам — пришлём ссылку: <a href="mailto:Romario18036@yandex.ru">Romario18036@yandex.ru</a> или <a href="tel:+79141664336">+7 914 166-43-36</a>.');
 
     btn.disabled=true;btn.textContent='Создаём платёж…';
-    fetch(PAY_API,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({plan:form.plan.value,email:email,tg_id:tgId||null,tg_username:tgId?null:tg})})
+    fetch(PAY_API,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({plan:form.plan.value,email:email,tg_id:tgId||code})})
       .then(function(r){if(!r.ok)throw 0;return r.json()})
       .then(function(d){if(!d.confirmation_url)throw 0;location.href=d.confirmation_url})
       .catch(function(){btn.disabled=false;paint();fail('Не получилось создать платёж. Попробуйте ещё раз или напишите нам: <a href="mailto:Romario18036@yandex.ru">Romario18036@yandex.ru</a>.')});
