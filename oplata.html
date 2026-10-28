@@ -96,7 +96,7 @@ footer .links{display:flex;flex-direction:column;gap:6px}
       <li><svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 7"/></svg>Разбор каждой голосовой с цифрами прогресса</li>
       <li><svg viewBox="0 0 24 24"><path d="M5 12l5 5L20 7"/></svg>Доступ открывается в боте сразу после оплаты</li>
     </ul>
-    <div class="safe"><svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>Оплата проходит на защищённой странице ЮKassa. Данные карты не попадают к нам.</div>
+    <div class="safe"><svg viewBox="0 0 24 24"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>Оплата проходит на защищённой странице Robokassa. Данные карты не попадают к нам.</div>
   </section>
 
   <form class="card" id="payForm" novalidate>
@@ -121,7 +121,7 @@ footer .links{display:flex;flex-direction:column;gap:6px}
 
     <p class="err" id="err" role="alert"></p>
     <button class="btn" type="submit" id="payBtn">Перейти к оплате 8 800 ₽</button>
-    <div class="methods" aria-label="Способы оплаты"><span>Карта Мир</span><span>Visa / Mastercard</span><span>СБП</span><span>SberPay</span><span>ЮMoney</span></div>
+    <div class="methods" aria-label="Способы оплаты"><span>Карта Мир</span><span>Visa / Mastercard</span><span>СБП</span><span>SberPay</span></div>
   </form>
 </main>
 
@@ -132,7 +132,7 @@ footer .links{display:flex;flex-direction:column;gap:6px}
 
 <script>
 (function(){
-  /* Адрес сервера, который создаёт платёж в ЮKassa (см. payments/README.md).
+  /* Адрес сервера, который создаёт платёж в Robokassa (см. payments/README.md).
      Пока пусто — страница показывает контакты вместо перехода к оплате. */
   var PAY_API = '';
 
