@@ -132,9 +132,9 @@ footer .links{display:flex;flex-direction:column;gap:6px}
 
 <script>
 (function(){
-  /* Адрес сервера, который создаёт платёж в Robokassa (см. payments/README.md).
-     Пока пусто — страница показывает контакты вместо перехода к оплате. */
-  var PAY_API = '';
+  /* Сервер бота создаёт платёж в Robokassa: POST {plan, email, tg_id} → {confirmation_url} или 4xx {error}.
+     Пусто — страница показывает контакты вместо перехода к оплате. */
+  var PAY_API = 'https://api.govoryu-uverenno.ru/api/pay';
 
   var q=new URLSearchParams(location.search);
   var tgId=(q.get('tg')||'').replace(/[^A-Za-z0-9_-]/g,'');  /* случайный код пользователя из бота */
@@ -153,6 +153,9 @@ footer .links{display:flex;flex-direction:column;gap:6px}
   form.addEventListener('change',paint);paint();
 
   function fail(msg){err.innerHTML=msg;err.classList.add('show')}
+  function esc(s){var d=document.createElement('div');d.textContent=s;return d.innerHTML}
+
+  if(q.get('InvId'))fail('Оплата не прошла, попробуйте ещё раз.');  /* Robokassa вернула с Fail URL */
 
   form.addEventListener('submit',function(e){
     e.preventDefault();err.classList.remove('show');
@@ -165,9 +168,10 @@ footer .links{display:flex;flex-direction:column;gap:6px}
 
     btn.disabled=true;btn.textContent='Создаём платёж…';
     fetch(PAY_API,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({plan:form.plan.value,email:email,tg_id:tgId||code})})
-      .then(function(r){if(!r.ok)throw 0;return r.json()})
-      .then(function(d){if(!d.confirmation_url)throw 0;location.href=d.confirmation_url})
-      .catch(function(){btn.disabled=false;paint();fail('Не получилось создать платёж. Попробуйте ещё раз или напишите нам: <a href="mailto:Romario18036@yandex.ru">Romario18036@yandex.ru</a>.')});
+      .then(function(r){return r.json().catch(function(){return {}}).then(function(d){if(!r.ok||!d.confirmation_url)throw d;return d})})
+      .then(function(d){location.href=d.confirmation_url})
+      .catch(function(d){btn.disabled=false;paint();
+        fail(d&&d.error?esc(d.error):'Не получилось создать платёж. Попробуйте ещё раз или напишите нам: <a href="mailto:Romario18036@yandex.ru">Romario18036@yandex.ru</a>.')});
   });
 })();
 </script>
