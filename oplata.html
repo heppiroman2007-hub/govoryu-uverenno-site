@@ -113,7 +113,8 @@ footer .links{display:flex;flex-direction:column;gap:6px}
     <div id="promoBox">
       <label class="f" for="promo">Промокод <span style="font-weight:400;color:var(--muted)">— если есть</span></label>
       <input class="in" id="promo" name="promo" type="text" autocomplete="off" autocapitalize="characters" spellcheck="false" placeholder="Например, GIFT-A7K2M9">
-      <p class="hint">Цена со скидкой будет на странице оплаты.</p>
+      <p class="err" id="promoErr" role="alert"></p>
+      <p class="hint">Скидка сразу отразится на кнопке оплаты.</p>
     </div>
 
     <div id="tgBox" hidden>
@@ -160,13 +161,35 @@ footer .links{display:flex;flex-direction:column;gap:6px}
   }
   if(!tgId)document.getElementById('tgBox').hidden=false;
 
-  var promoBox=document.getElementById('promoBox');
-  /* промокоды действуют только при оплате целиком и на подарок, на рассрочку — нет */
+  var promoBox=document.getElementById('promoBox'),promoErr=document.getElementById('promoErr');
+  var PRICE_API=PAY_API.replace(/\/pay$/,'/price');
+  var deal=null,seq=0,timer;  /* deal — ответ /api/price {full, amount} для текущего плана и промокода */
+  function rub(n){return Math.round(n).toLocaleString('ru-RU').replace(/ /g,' ')}
+  function promoOn(){return form.plan.value==='full'||form.plan.value==='gift'}  /* на рассрочку промокоды не действуют */
+
   function paint(){
+    promoBox.hidden=!promoOn();
+    if(deal&&promoOn()&&deal.amount===0){btn.textContent='Активировать подарок';return}
+    if(deal&&promoOn()&&deal.amount<deal.full){
+      btn.innerHTML='Перейти к оплате '+rub(deal.amount)+' ₽ <s style="font-weight:500;opacity:.55">'+rub(deal.full)+' ₽</s>';return}
     btn.textContent='Перейти к оплате '+PRICE[form.plan.value]+' ₽';
-    promoBox.hidden=!(form.plan.value==='full'||form.plan.value==='gift');
   }
-  form.addEventListener('change',paint);paint();
+
+  /* только расчёт: счёт не создаётся, код не тратится */
+  function checkPromo(){
+    clearTimeout(timer);
+    var promo=form.promo.value.trim(),my=++seq;
+    promoErr.classList.remove('show');deal=null;paint();
+    if(!promo||!promoOn()||!PAY_API)return;
+    fetch(PRICE_API,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({plan:form.plan.value,promo:promo})})
+      .then(function(r){return r.json().catch(function(){return {}}).then(function(d){if(!r.ok)throw d;return d})})
+      .then(function(d){if(my!==seq)return;if(typeof d.amount==='number'&&typeof d.full==='number')deal=d;paint()})
+      .catch(function(d){if(my!==seq)return;promoErr.textContent=d&&d.error?d.error:'Не удалось проверить промокод.';promoErr.classList.add('show')});
+  }
+  form.promo.addEventListener('input',function(){clearTimeout(timer);timer=setTimeout(function(){timer=0;checkPromo()},400)});
+  form.promo.addEventListener('blur',function(){if(timer){timer=0;checkPromo()}});  /* ушёл из поля раньше паузы */
+  form.addEventListener('change',function(e){if(e.target.name==='plan')checkPromo();else paint()});
+  paint();
 
   function fail(msg){err.innerHTML=msg;err.classList.add('show')}
   function esc(s){var d=document.createElement('div');d.textContent=s;return d.innerHTML}
