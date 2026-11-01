@@ -1,0 +1,6 @@
+User-agent: *
+Disallow: /oplata.html
+Disallow: /oplata-ok.html
+Allow: /
+
+Sitemap: https://govoryu-uverenno.ru/sitemap.xml
