@@ -16,9 +16,20 @@
     ym(ID, 'init', { clickmap: true, trackLinks: true, accurateTrackBounce: true, webvisor: true });
   }
 
+  /* метка источника для бота: заход из Яндекс Директа (yclid или utm_source=yandex) запоминается на сессию,
+     и ссылки в бота получают ?start=ydirect — тогда /bill считает этих людей отдельно. Не cookie и не ПДн. */
+  var SRC = (function () {
+    try {
+      var q = new URLSearchParams(location.search);
+      if (q.get('yclid') || q.get('utm_source') === 'yandex') sessionStorage.setItem('gu_src', 'ydirect');
+      return sessionStorage.getItem('gu_src');
+    } catch (e) { return null; }
+  })();
+
   /* переход в бота — главная цель: цель «bot» в Метрике */
   document.addEventListener('click', function (e) {
     var a = e.target.closest && e.target.closest('a[href*="t.me/govoryu_uverenno_bot"]');
+    if (a && SRC && a.href.indexOf('start=') < 0) a.href = 'https://t.me/govoryu_uverenno_bot?start=' + SRC;
     if (a && window.ym) ym(ID, 'reachGoal', 'bot');
   });
 
