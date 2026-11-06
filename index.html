@@ -310,13 +310,15 @@
   footer .links{display:flex;flex-direction:column;gap:8px}
   footer a{color:#cbbfc6}
 
-  .cookie{position:fixed;right:20px;bottom:20px;z-index:50;width:min(380px,calc(100% - 40px));background:#fff;color:var(--black);padding:22px 24px;border-radius:18px;box-shadow:0 20px 50px -10px rgba(0,0,0,.3);font-size:13.5px;display:none}
-  .cookie.show{display:block;animation:pop .4s both}
-  .cookie b{display:block;font-size:16px;font-weight:600;margin-bottom:6px}
-  .cookie .b{display:flex;gap:10px;margin-top:16px}
-  .cookie button{flex:1;min-height:42px;border:0;border-radius:99px;font:600 13px "Montserrat",sans-serif;cursor:pointer}
+  /* cookie: тонкая полоска внизу, появляется только после прокрутки — не закрывает кнопку на первом экране */
+  .cookie{position:fixed;left:0;right:0;bottom:0;z-index:50;background:#fff;color:var(--black);padding:8px 16px;box-shadow:0 -10px 30px -14px rgba(0,0,0,.35);font-size:12.5px;line-height:1.35;display:none;align-items:center;justify-content:center;gap:12px}
+  .cookie.show{display:flex;animation:pop .4s both}
+  .cookie .t{min-width:0}
+  .cookie .b{display:flex;gap:8px;flex-shrink:0}
+  .cookie button{min-height:34px;padding:0 14px;border:0;border-radius:99px;font:600 12.5px "Montserrat",sans-serif;cursor:pointer;color:var(--black);white-space:nowrap}
   .cookie .all{background:var(--grad)}
   .cookie .need{background:var(--grey)}
+  @media (max-width:560px){.cookie{flex-wrap:wrap;gap:6px 8px;padding:8px 12px;font-size:12px}.cookie .t{flex:1 1 100%;text-align:center}.cookie button{min-height:32px;font-size:12px}}
 
   .reveal{opacity:0;transform:translateY(20px);transition:opacity .7s,transform .7s cubic-bezier(.2,.8,.2,1)}
   .reveal.in{opacity:1;transform:none}
@@ -602,9 +604,8 @@
 </footer>
 
 <div class="cookie" id="cookie" role="dialog" aria-label="Файлы cookie">
-  <b>Мы используем cookies</b>
-  Для статистики посещений — Яндекс Метрика. Подробнее — в <a href="privacy.html">политике</a>.
-  <div class="b"><button class="all" data-c="all">Принять все</button><button class="need" data-c="need">Только необходимые</button></div>
+  <span class="t">Cookies — для статистики Яндекс Метрики. <a href="privacy.html">Подробнее</a></span>
+  <div class="b"><button class="all" data-c="all">Принять</button><button class="need" data-c="need">Только нужные</button></div>
 </div>
 
 <script src="analytics.js" defer></script>
@@ -707,8 +708,9 @@
 
   var ck=document.getElementById('cookie'),seen=null;
   try{seen=localStorage.getItem('gu_cookie')}catch(e){}
-  if(!seen)ck.classList.add('show');
-  ck.addEventListener('click',function(e){var c=e.target.getAttribute('data-c');if(!c)return;try{localStorage.setItem('gu_cookie',c)}catch(_){}ck.classList.remove('show')});
+  /* полоску показываем, только когда человек начал листать: первый экран с кнопкой «Пройти пробный день» остаётся чистым */
+  if(!seen){var ckShow=function(){if(window.scrollY>250){ck.classList.add('show');document.body.style.paddingBottom=ck.offsetHeight+'px';window.removeEventListener('scroll',ckShow)}};window.addEventListener('scroll',ckShow,{passive:true});ckShow()}
+  ck.addEventListener('click',function(e){var c=e.target.getAttribute('data-c');if(!c)return;try{localStorage.setItem('gu_cookie',c)}catch(_){}ck.classList.remove('show');document.body.style.paddingBottom=''});
 })();
 </script>
 </body>

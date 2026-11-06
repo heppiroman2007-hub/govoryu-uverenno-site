@@ -37,22 +37,32 @@
     var ck = document.getElementById('cookie');
     if (!ck) {
       var st = document.createElement('style');
-      st.textContent = '.cookie{position:fixed;right:20px;bottom:20px;z-index:50;width:min(380px,calc(100% - 40px));background:#fff;color:#1e0c18;padding:22px 24px;border-radius:18px;box-shadow:0 20px 50px -10px rgba(0,0,0,.3);font-size:13.5px;display:none}'
-        + '.cookie.show{display:block}.cookie b{display:block;font-size:16px;font-weight:600;margin-bottom:6px}.cookie .b{display:flex;gap:10px;margin-top:16px}'
-        + '.cookie button{flex:1;min-height:42px;border:0;border-radius:99px;font:600 13px Montserrat,sans-serif;cursor:pointer;color:#1e0c18}'
-        + '.cookie .all{background:linear-gradient(100deg,#d6e595,#ddeaa1 45%,#e9f1c3)}.cookie .need{background:#f5f4ee}';
+      /* тонкая полоска внизу, появляется только после прокрутки (как на главной) */
+      st.textContent = '.cookie{position:fixed;left:0;right:0;bottom:0;z-index:50;background:#fff;color:#1e0c18;padding:8px 16px;box-shadow:0 -10px 30px -14px rgba(0,0,0,.35);font-size:12.5px;line-height:1.35;display:none;align-items:center;justify-content:center;gap:12px}'
+        + '.cookie.show{display:flex}.cookie .t{min-width:0}.cookie .b{display:flex;gap:8px;flex-shrink:0}'
+        + '.cookie button{min-height:34px;padding:0 14px;border:0;border-radius:99px;font:600 12.5px Montserrat,sans-serif;cursor:pointer;color:#1e0c18;white-space:nowrap}'
+        + '.cookie .all{background:linear-gradient(100deg,#d6e595,#ddeaa1 45%,#e9f1c3)}.cookie .need{background:#f5f4ee}'
+        + '@media (max-width:560px){.cookie{flex-wrap:wrap;gap:6px 8px;padding:8px 12px;font-size:12px}.cookie .t{flex:1 1 100%;text-align:center}.cookie button{min-height:32px;font-size:12px}}';
       document.head.appendChild(st);
       ck = document.createElement('div');
       ck.className = 'cookie'; ck.id = 'cookie'; ck.setAttribute('role', 'dialog'); ck.setAttribute('aria-label', 'Файлы cookie');
-      ck.innerHTML = '<b>Мы используем cookies</b>Для статистики посещений — Яндекс Метрика. Подробнее — в <a href="privacy.html">политике</a>.'
-        + '<div class="b"><button class="all" data-c="all">Принять все</button><button class="need" data-c="need">Только необходимые</button></div>';
+      ck.innerHTML = '<span class="t">Cookies — для статистики Яндекс Метрики. <a href="privacy.html">Подробнее</a></span>'
+        + '<div class="b"><button class="all" data-c="all">Принять</button><button class="need" data-c="need">Только нужные</button></div>';
       document.body.appendChild(ck);
       ck.addEventListener('click', function (e) {
         var c = e.target.getAttribute('data-c'); if (!c) return;
         try { localStorage.setItem(KEY, c); } catch (_) {}
-        ck.classList.remove('show');
+        ck.classList.remove('show'); document.body.style.paddingBottom = '';
       });
-      if (!choice()) setTimeout(function () { ck.classList.add('show'); }, 1200);
+      if (!choice()) {
+        var show = function () {
+          if (window.scrollY > 250) {
+            ck.classList.add('show'); document.body.style.paddingBottom = ck.offsetHeight + 'px';
+            window.removeEventListener('scroll', show);
+          }
+        };
+        window.addEventListener('scroll', show, { passive: true }); show();
+      }
     }
     /* свой и чужой баннер: после «Принять все» сразу включаем Метрику */
     ck.addEventListener('click', function (e) { if (e.target.getAttribute('data-c') === 'all') loadMetrika(); });
