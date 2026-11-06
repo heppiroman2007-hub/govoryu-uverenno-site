@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Узнайте свой Индекс речи — бесплатно | Говорю уверенно</title>
+<meta name="description" content="Запишите голосовое в Telegram — AI-тренер разберёт темп, паузы, слова-паразиты и тон. 7 минут, без камеры, бесплатно.">
+<meta name="robots" content="noindex">
+<link rel="icon" href="img/avatar.jpg">
+<style>
+  /* Посадочная для рекламы в РСЯ: один экран, одна кнопка в бота. Метка источника — ?s=<метка>, по умолчанию rsya */
+  @font-face{font-family:"Montserrat";src:url(fonts/montserrat.woff2) format("woff2");font-weight:100 900;font-display:swap}
+  :root{--black:#1e0c18;--white:#fff;--grey:#f5f4ee;--plum:#731e52;--pist:#ddeaa1;--grad:linear-gradient(100deg,#d6e595,#ddeaa1 45%,#e9f1c3)}
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{background:var(--black)}
+  body{min-height:100vh;min-height:100svh;display:flex;flex-direction:column;color:#fff;font-family:"Montserrat",system-ui,sans-serif;padding-bottom:84px}
+  .hd{padding:18px 20px}
+  .logo{color:#fff;text-decoration:none;font-weight:800;font-size:17px;letter-spacing:-.3px}
+  .logo span{color:var(--pist)}
+  main{flex:1;display:flex;align-items:center;justify-content:center;padding:8px 20px 24px}
+  .box{width:100%;max-width:520px;text-align:center}
+  .kicker{display:inline-block;font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--pist);margin-bottom:18px}
+  h1{font-size:clamp(32px,8vw,48px);line-height:1.05;font-weight:900;font-style:italic;letter-spacing:-1px;margin-bottom:18px}
+  h1 span{color:var(--pist)}
+  .lead{font-size:16px;line-height:1.5;color:#e9dde4;margin-bottom:28px}
+  .btn{display:flex;align-items:center;justify-content:center;gap:12px;width:100%;min-height:64px;padding:0 24px;border-radius:999px;font:800 17px/1.2 "Montserrat",sans-serif;text-decoration:none;color:var(--black);background:var(--grad);box-shadow:0 14px 34px -14px rgba(221,234,161,.55)}
+  .btn svg{width:22px;height:22px;flex-shrink:0}
+  .hint{font-size:13px;color:#b9a3b0;margin-top:12px}
+  .facts{display:flex;flex-wrap:wrap;justify-content:center;gap:8px 18px;margin-top:26px;font-size:13.5px;color:#e9dde4}
+  .facts span{display:flex;align-items:center;gap:7px}
+  .facts span::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--pist)}
+  footer{padding:14px 20px 18px;text-align:center;font-size:11.5px;line-height:1.6;color:#8f7885}
+  footer a{color:#8f7885}
+  /* cookie: тонкая полоска внизу, кнопку не закрывает */
+  .cookie{position:fixed;left:0;right:0;bottom:0;z-index:50;background:#fff;color:var(--black);padding:8px 16px;box-shadow:0 -10px 30px -14px rgba(0,0,0,.35);font-size:12.5px;line-height:1.35;display:none;align-items:center;justify-content:center;gap:12px}
+  .cookie.show{display:flex}
+  .cookie a{color:var(--plum)}
+  .cookie .b{display:flex;gap:8px;flex-shrink:0}
+  .cookie button{min-height:34px;padding:0 14px;border:0;border-radius:99px;font:600 12.5px "Montserrat",sans-serif;cursor:pointer;color:var(--black);white-space:nowrap}
+  .cookie .all{background:var(--grad)}
+  .cookie .need{background:var(--grey)}
+  @media (max-width:560px){.cookie{flex-wrap:wrap;gap:6px 8px;padding:8px 12px;font-size:12px}.cookie .t{flex:1 1 100%;text-align:center}.cookie button{min-height:32px;font-size:12px}}
+</style>
+</head>
+<body>
+<div class="hd"><a class="logo" href="./">#говорю<span>уверенно</span></a></div>
+<main>
+  <div class="box">
+    <div class="kicker">Бесплатно · 7 минут · без камеры</div>
+    <h1>Узнайте свой <span>Индекс речи</span></h1>
+    <p class="lead">Запишите голосовое в Telegram — AI-тренер разберёт темп, паузы, слова-паразиты и тон и покажет, как сказать увереннее.</p>
+    <a class="btn" id="go" href="https://t.me/govoryu_uverenno_bot?start=rsya" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21.9 4.3 18.7 19.4c-.2 1-.9 1.3-1.8.8l-4.9-3.6-2.4 2.3c-.3.3-.5.5-1 .5l.4-5 9.1-8.2c.4-.4-.1-.6-.6-.2L6.2 13.1l-4.8-1.5c-1-.3-1-1 .2-1.5L20.5 2.8c.9-.3 1.6.2 1.4 1.5z"/></svg>
+      Открыть тренажёр в Telegram
+    </a>
+    <p class="hint">Откроется бот «Говорю уверенно» — нажмите «Запустить»</p>
+    <div class="facts"><span>Голосом, без камеры</span><span>Разбор с цифрами</span><span>Первый день бесплатно</span></div>
+  </div>
+</main>
+<footer>ИП Параев Роман Евгеньевич · ИНН 270325973531 · <a href="offer.html">Оферта</a> · <a href="privacy.html">Политика конфиденциальности</a></footer>
+
+<div class="cookie" id="cookie" role="dialog" aria-label="Файлы cookie">
+  <span class="t">Cookies — для статистики Яндекс Метрики. <a href="privacy.html">Подробнее</a></span>
+  <div class="b"><button class="all" data-c="all">Принять</button><button class="need" data-c="need">Только нужные</button></div>
+</div>
+
+<script src="analytics.js" defer></script>
+<script>
+(function(){
+  /* метка источника: ?s=<метка> (латиница, цифры, _), по умолчанию rsya */
+  var tag='rsya';
+  try{var s=new URLSearchParams(location.search).get('s');if(s&&/^[a-z0-9_]{2,32}$/i.test(s))tag=s}catch(e){}
+  document.getElementById('go').href='https://t.me/govoryu_uverenno_bot?start='+tag;
+  /* cookie-полоска: здесь показываем сразу — она внизу и кнопку не закрывает */
+  var ck=document.getElementById('cookie'),seen=null;
+  try{seen=localStorage.getItem('gu_cookie')}catch(e){}
+  if(!seen)setTimeout(function(){ck.classList.add('show')},800);
+  ck.addEventListener('click',function(e){var c=e.target.getAttribute('data-c');if(!c)return;try{localStorage.setItem('gu_cookie',c)}catch(_){}ck.classList.remove('show')});
+})();
+</script>
+</body>
+</html>
