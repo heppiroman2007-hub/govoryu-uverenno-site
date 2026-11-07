@@ -159,6 +159,11 @@ footer .links{display:flex;flex-direction:column;gap:6px}
     document.querySelector('.opts').innerHTML='<label class="opt"><input type="radio" name="plan" value="gift" checked><span class="t">Курс в подарок<small>подарочный сертификат придёт в бота</small></span><span class="p">8 800 ₽</span></label>';
     document.querySelector('form h2').textContent='Курс в подарок';
   }
+  if(q.get('plan')==='week'){ /* неделя курса: 7 занятий; следующую неделю бот предложит сам */
+    PRICE.week='2 700';
+    document.querySelector('.opts').innerHTML='<label class="opt"><input type="radio" name="plan" value="week" checked><span class="t">Неделя занятий<small>7 дней курса · следующая неделя — по кнопке в боте</small></span><span class="p">2 700 ₽</span></label>';
+    document.querySelector('form h2').textContent='Оплата недели курса';
+  }
   if(!tgId)document.getElementById('tgBox').hidden=false;
 
   var promoBox=document.getElementById('promoBox'),promoErr=document.getElementById('promoErr');
